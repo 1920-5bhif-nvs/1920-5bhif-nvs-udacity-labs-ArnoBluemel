@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                             xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="myName" type="at.htl.aboutme.MyName"/>
+    </data>
+
+<android.widget.LinearLayout android:layout_width="match_parent"
                              android:layout_height="match_parent"
 android:orientation="vertical">
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/name_text" style="@style/NameStyle"
-            android:textAlignment="center" android:text="@string/name"/>
+            android:textAlignment="center" android:text="@={myName.name}"/>
     <EditText
+            android:text="@={myName.nickname}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/nickname_edit" style="@style/NameStyle" android:hint="@string/nickname_hint"/>
+            android:id="@+id/nickname_edit" style="@style/NameStyle" android:hint="@string/nickname_hint"
+            android:textAlignment="center"/>
     <TextView
-            android:text="TextView"
+            android:text="@={myName.nickname}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/nickname_text" style="@style/NameStyle"
-            android:visibility="gone"/>
+            android:visibility="gone" android:textAlignment="center"/>
     <Button
             android:text="@string/done"
             android:layout_width="wrap_content"
@@ -48,3 +56,4 @@ android:orientation="vertical">
         </LinearLayout>
     </ScrollView>
 </android.widget.LinearLayout>
+</layout>
