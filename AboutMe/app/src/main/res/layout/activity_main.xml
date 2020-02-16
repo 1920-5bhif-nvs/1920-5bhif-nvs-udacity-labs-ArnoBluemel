@@ -8,6 +8,22 @@ android:orientation="vertical">
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/name_text" style="@style/NameStyle"
             android:textAlignment="center" android:text="@string/name"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/nickname_edit" style="@style/NameStyle" android:hint="@string/nickname_hint"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/nickname_text" style="@style/NameStyle"
+            android:visibility="gone"/>
+    <Button
+            android:text="@string/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/done_button"
+            android:layout_gravity="center_horizontal"/>
     <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star_big_on"
@@ -18,7 +34,7 @@ android:orientation="vertical">
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" android:textAlignment="center">
             <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" app:srcCompat="@android:drawable/button_onoff_indicator_on"
