@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">AboutMe</string>
+    <string name="name">Jürgen der Brutale</string>
+    <string name="bio">Hi. Ich bin Jürgen der Brutale.
+    \n\nIch liebe Macht und Reichtum.
+    \nIch würde am liebsten ganz Jumanji an mich reißen.
+    \n\nWas ich gar nicht mag, ist Dr. Smolder Bravestone.
+    \nDiesen Typen hasse ich. Er durchkreuzt immer meine bösen Pläne.
+    \nIch hasse diesen Typen und seine beeindruckende Intensität.
+    \n\n\nP.S.: Ich kann Bravestone wirklich nicht ausstehen.</string>
 </resources>
