@@ -53,6 +53,13 @@ class GameFragment : Fragment() {
                 false
         )
 
+        viewModel.eventGameFinish.observe(this, Observer { value ->
+            if(value) {
+                gameFinished()
+                viewModel.onGameFinishComplete()
+            }
+        })
+
         viewModel.score.observe(this, Observer { newScore ->
             binding.scoreText.text = newScore.toString()
         })
@@ -72,6 +79,7 @@ class GameFragment : Fragment() {
      */
     private fun gameFinished() {
         val action = GameFragmentDirections.actionGameToScore(viewModel.score.value ?: 0)
+
         findNavController(this).navigate(action)
     }
 }
