@@ -27,6 +27,7 @@ import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleObserver
 import com.example.android.dessertpusher.databinding.ActivityMainBinding
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), LifecycleObserver {
 
@@ -64,13 +65,38 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     private var currentDessert = allDesserts[0]
 
     override fun onStart() {
-        Log.i("MainActivity", "onStart called")
+        Timber.i("onStart called")
         super.onStart()
+    }
+
+    override fun onResume() {
+        Timber.i("onResume called")
+        super.onResume()
+    }
+
+    override fun onPause() {
+        Timber.i("onPause called")
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        Timber.i("onDestroy called")
+        super.onDestroy()
+    }
+
+    override fun onRestart() {
+        Timber.i("onRestart called")
+        super.onRestart()
+    }
+
+    override fun onStop() {
+        Timber.i("onStop called")
+        super.onStop()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        Log.i("MainActivity", "onCreate called")
+        Timber.i("onCreate called")
 
         super.onCreate(savedInstanceState)
 
