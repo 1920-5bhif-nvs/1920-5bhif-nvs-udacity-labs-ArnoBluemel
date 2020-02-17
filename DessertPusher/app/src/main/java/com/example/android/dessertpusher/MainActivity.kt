@@ -31,6 +31,10 @@ import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), LifecycleObserver {
 
+    private val KEY_REVENUE: String = "revenue"
+    private val KEY_DESSERTS_SOLD: String = "desserts_sold"
+    private val KEY_TIMER_SECONDS: String = "timer_seconds"
+
     private var revenue = 0
     private var dessertsSold = 0
     private lateinit var dessertTimer: DessertTimer;
@@ -64,6 +68,22 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
             Dessert(R.drawable.oreo, 6000, 20000)
     )
     private var currentDessert = allDesserts[0]
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        Timber.i("onSaveInstanceState called")
+
+        outState?.putInt(KEY_REVENUE, revenue)
+        outState?.putInt(KEY_DESSERTS_SOLD, dessertsSold)
+        outState?.putInt(KEY_TIMER_SECONDS, dessertTimer.secondsCount)
+
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        Timber.i("onRestoreInstanceState called")
+
+        super.onRestoreInstanceState(savedInstanceState)
+    }
 
     override fun onStart() {
         Timber.i("onStart called")
@@ -105,6 +125,12 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         Timber.i("onCreate called")
 
         dessertTimer = DessertTimer(lifecycle)
+
+        if (savedInstanceState != null) {
+            revenue = savedInstanceState.getInt(KEY_REVENUE, 0)
+            dessertsSold = savedInstanceState.getInt(KEY_DESSERTS_SOLD, 0)
+            dessertTimer.secondsCount = savedInstanceState.getInt(KEY_TIMER_SECONDS, 0)
+        }
 
         super.onCreate(savedInstanceState)
 
