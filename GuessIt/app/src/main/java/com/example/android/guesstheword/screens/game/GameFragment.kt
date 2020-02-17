@@ -18,7 +18,6 @@ package com.example.android.guesstheword.screens.game
 
 import android.os.Bundle
 import android.text.format.DateUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +26,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment.findNavController
-import com.example.android.guesstheword.GameViewModel
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.GameFragmentBinding
 
@@ -43,9 +41,6 @@ class GameFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        Log.i("GameFragment", "Called ViewModelProviders.of")
-        viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
-
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
                 inflater,
@@ -54,37 +49,39 @@ class GameFragment : Fragment() {
                 false
         )
 
-        viewModel.eventGameFinish.observe(this, Observer { value ->
-            if(value) {
-                gameFinished()
-                viewModel.onGameFinishComplete()
-            }
+        // Get the viewmodel
+        viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
+
+        // Set the viewmodel for databinding - this allows the bound layout access to all of the
+        // data in the VieWModel
+        binding.gameViewModel = viewModel
+
+        /** Setting up LiveData observation relationship **/
+        viewModel.word.observe(this, Observer { newWord ->
+            binding.wordText.text = newWord
         })
 
         viewModel.score.observe(this, Observer { newScore ->
             binding.scoreText.text = newScore.toString()
         })
 
-        viewModel.word.observe(this, Observer { newWord ->
-            binding.wordText.text = newWord
-        })
-
         viewModel.currentTime.observe(this, Observer { newTime ->
-            binding.timerText.text = DateUtils.formatElapsedTime(newTime / 1000)
+            binding.timerText.text = DateUtils.formatElapsedTime(newTime)
+
         })
 
-        binding.correctButton.setOnClickListener { viewModel.onCorrect() }
-        binding.skipButton.setOnClickListener { viewModel.onSkip() }
+        // Sets up event listening to navigate the player when the game is finished
+        viewModel.eventGameFinish.observe(this, Observer { isFinished ->
+            if (isFinished) {
+                val currentScore = viewModel.score.value ?: 0
+                val action = GameFragmentDirections.actionGameToScore(currentScore)
+                findNavController(this).navigate(action)
+                viewModel.onGameFinishComplete()
+            }
+        })
+
         return binding.root
 
     }
 
-    /**
-     * Called when the game is finished
-     */
-    private fun gameFinished() {
-        val action = GameFragmentDirections.actionGameToScore(viewModel.score.value ?: 0)
-
-        findNavController(this).navigate(action)
-    }
 }
