@@ -60,10 +60,9 @@ class GameFragment : Fragment() {
         // the binding can observe LiveData updates
         binding.setLifecycleOwner(this)
 
-        viewModel.currentTime.observe(this, Observer { newTime ->
-            binding.timerText.text = DateUtils.formatElapsedTime(newTime)
-
-        })
+        //viewModel.currentTime.observe(this, Observer { newTime ->
+        //    binding.timerText.text = binding.gameViewModel.currentTimeString.value
+        //})
 
         // Sets up event listening to navigate the player when the game is finished
         viewModel.eventGameFinish.observe(this, Observer { isFinished ->
