@@ -149,12 +149,12 @@ sealed class DataItem {
     abstract val id: Long
 }
 
-class SleepNightAdapter: ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()) {
+class SleepNightAdapter(val clickListener: SleepNightListener): ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()) {
 
 
 
     override fun onBindViewHolder(holder: SleepNightAdapter.ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(clickListener,getItem(position)!!)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SleepNightAdapter.ViewHolder {
@@ -164,7 +164,7 @@ class SleepNightAdapter: ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(S
     class ViewHolder private constructor(val binding: ListItemSleepNightBinding):
             RecyclerView.ViewHolder(binding.root)  {
 
-        fun bind(item: SleepNight) {
+        fun bind(clickListener: SleepNightListener, item: SleepNight) {
 //            val res = itemView.context.resources
 //            binding.sleepLength.text = convertDurationToFormatted(item.startTimeMilli, item.endTimeMilli, res)
 //            binding.qualityString.text = convertNumericQualityToString(item.sleepQuality, res)
@@ -178,6 +178,7 @@ class SleepNightAdapter: ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(S
 //                else -> R.drawable.ic_sleep_active
 //            })
             binding.sleep = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
