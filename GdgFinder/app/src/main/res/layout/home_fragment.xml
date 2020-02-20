@@ -97,7 +97,7 @@
                 android:id="@+id/start_grid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintGuide_begin="16dp"
+                app:layout_constraintGuide_begin="@dimen/spacing_normal"
                 android:orientation="vertical"/>
 
         <androidx.constraintlayout.widget.Guideline
@@ -105,7 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="16dp"/>
+            app:layout_constraintGuide_end="@dimen/spacing_normal"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
 
